@@ -3,6 +3,8 @@ package ds.impl;
 import ds.Trie;
 import ds.entity.TrieNode;
 
+import java.util.Map;
+
 public final class TrieImpl implements Trie {
 
     /**
@@ -24,19 +26,20 @@ public final class TrieImpl implements Trie {
      */
     @Override
     public boolean add(final String word) {
-        TrieNode iterator = this.root;
+        TrieNode currNode = this.root;
 
         for (int i = 0; i < word.length(); i++) {
             char ch = word.charAt(i);
+            Map<Character, TrieNode> childNodes = currNode.getChildren();
 
-            if (!iterator.getChildren().containsKey(ch)) {
-                iterator.getChildren().put(ch, new TrieNode());
+            if (!childNodes.containsKey(ch)) {
+                childNodes.put(ch, new TrieNode());
             }
 
-            iterator = iterator.getChildren().get(ch);
+            currNode = childNodes.get(ch);
         }
 
-        iterator.setIsWord(true);
+        currNode.setIsWord(true);
 
         return true;
     }
@@ -48,19 +51,20 @@ public final class TrieImpl implements Trie {
      */
     @Override
     public boolean search(final String word) {
-        TrieNode iterator = this.root;
+        TrieNode currNode = this.root;
 
         for (int i = 0; i < word.length(); i++) {
             char ch = word.charAt(i);
+            Map<Character, TrieNode> childNodes = currNode.getChildren();
 
-            if (!iterator.getChildren().containsKey(ch)) {
+            if (!childNodes.containsKey(ch)) {
                 return false;
             } else {
-                iterator = iterator.getChildren().get(ch);
+                currNode = childNodes.get(ch);
             }
         }
 
-        return iterator.isWord();
+        return currNode.isWord();
     }
 
     /**
@@ -71,15 +75,16 @@ public final class TrieImpl implements Trie {
      */
     @Override
     public boolean startsWith(final String prefix) {
-        TrieNode iterator = this.root;
+        TrieNode currNode = this.root;
 
         for (int i = 0; i < prefix.length(); i++) {
             char ch = prefix.charAt(i);
+            Map<Character, TrieNode> childNodes = currNode.getChildren();
 
-            if (!iterator.getChildren().containsKey(ch)) {
+            if (!childNodes.containsKey(ch)) {
                 return false;
             } else {
-                iterator = iterator.getChildren().get(ch);
+                currNode = childNodes.get(ch);
             }
         }
 
