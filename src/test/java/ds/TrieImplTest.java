@@ -24,24 +24,30 @@ public class TrieImplTest {
 
     @Test
     public void searchTest() {
-        String word = "leetcode";
+        String word1 = "leetcode";
+        String word2 = "lemon";
         Trie trie = new TrieImpl();
-        trie.add(word);
+        trie.add(word1);
 
-        boolean isWordFound = trie.search(word);
+        boolean found1 = trie.search(word1);
+        boolean found2 = trie.search(word2);
 
-        Assert.assertTrue(isWordFound);
+        Assert.assertTrue(found1);
+        Assert.assertFalse(found2);
     }
 
     @Test
     public void startsWithTest() {
         String word = "leetcode";
-        String prefix = "leet";
+        String prefix1 = "leet";
+        String prefix2 = "fleet";
         Trie trie = new TrieImpl();
         trie.add(word);
 
-        boolean doesPrefixExist = trie.startsWith(prefix);
+        boolean doesPrefixExist1 = trie.startsWith(prefix1);
+        boolean doesPrefixExist2 = trie.startsWith(prefix2);
 
-        Assert.assertTrue(doesPrefixExist);
+        Assert.assertTrue(doesPrefixExist1);
+        Assert.assertFalse(doesPrefixExist2);
     }
 }
