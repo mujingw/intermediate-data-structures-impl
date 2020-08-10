@@ -5,7 +5,7 @@ public class ListNode<T> {
     /**
      * The information that the node stores.
      */
-    private final T value;
+    private T value;
 
     /**
      * The node whose position is immediately in front of the current node.
@@ -36,6 +36,14 @@ public class ListNode<T> {
      */
     public T getValue() {
         return this.value;
+    }
+
+    /**
+     *
+     * @param value the new value to be set
+     */
+    public void setValue(final T value) {
+        this.value = value;
     }
 
     /**

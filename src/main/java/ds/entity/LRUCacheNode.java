@@ -20,15 +20,7 @@ public class LRUCacheNode<K, V> extends ListNode<V> {
 
     /**
      *
-     * @param cacheKey the new value to be assigned to the current node
-     */
-    public void setCacheKey(final K cacheKey) {
-        this.cacheKey = cacheKey;
-    }
-
-    /**
-     *
-     * @return the auxValue in the node
+     * @return the key in the cache, whose value points to the current node
      */
     public K getCacheKey() {
         return this.cacheKey;

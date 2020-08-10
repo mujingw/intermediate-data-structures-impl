@@ -7,7 +7,7 @@ import org.junit.Test;
 public class LRUCacheImplTest {
 
     @Test
-    public void LRUCachePutTest() {
+    public void cachePutTest() {
         LRUCache<Integer, Integer> lruCache = new LRUCacheImpl<>(100);
 
         Integer oldValue1 = lruCache.put(1, 1);
@@ -21,7 +21,7 @@ public class LRUCacheImplTest {
     }
 
     @Test
-    public void LRUCacheGetTest() {
+    public void cacheGetTest() {
         LRUCache<Integer, Integer> lruCache = new LRUCacheImpl<>(2);
 
         lruCache.put(1, 1);
@@ -39,5 +39,15 @@ public class LRUCacheImplTest {
 
         Assert.assertEquals(Integer.valueOf(3), lruCache.get(3));
         Assert.assertEquals(Integer.valueOf(4), lruCache.get(4));
+    }
+
+    @Test
+    public void overwriteGetTest() {
+        LRUCache<Integer, Integer> lruCache = new LRUCacheImpl<>(2);
+
+        lruCache.put(3, 3);
+        lruCache.put(3, 33);
+
+        Assert.assertEquals(Integer.valueOf(33), lruCache.get(3));
     }
 }

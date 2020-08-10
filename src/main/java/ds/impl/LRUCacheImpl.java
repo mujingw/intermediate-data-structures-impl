@@ -59,22 +59,26 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
     @Override
     public V put(final K key, final V value) {
         if (this.cache.containsKey(key)) {
-            V oldValue = this.cache.get(key).getValue();
+            V existingValue = this.cache.get(key).getValue();
 
+            // overwrite the existing value
+            cache.get(key).setValue(value);
+            // update the rank now that the node has just been accessed
             this.reRank(this.cache.get(key));
-            cache.get(key).setCacheKey(key);
 
-            return oldValue;
+            return existingValue;
         } else {
             LRUCacheNode<K, V> nodeToAdd = new LRUCacheNode<>(key, value);
 
-            this.add(nodeToAdd);
+            // add node to the lookup cache
             this.cache.put(key, nodeToAdd);
+            // update the rank of the newly added node to the top
+            this.add(nodeToAdd);
 
             if (this.cache.size() > this.capacity) {
-                LRUCacheNode<K, V> nodeToRemove = this.head.getNext();
-                this.remove(nodeToRemove);
-                this.cache.remove(nodeToRemove.getCacheKey());
+                LRUCacheNode<K, V> nodeToEvict = this.head.getNext();
+                this.evict(nodeToEvict);
+                this.cache.remove(nodeToEvict.getCacheKey());
             }
 
             return null;
@@ -92,7 +96,7 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
      * @param node the node to be re-ranked
      */
     private void reRank(final LRUCacheNode<K, V> node) {
-        this.remove(node);
+        this.evict(node);
         this.add(node);
     }
 
@@ -111,10 +115,10 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
 
     /**
      *
-     * @param node the node to be removed from its current position
+     * @param node the node to be evicted from its current position
      *             in the list
      */
-    private void remove(final LRUCacheNode<K, V> node) {
+    private void evict(final LRUCacheNode<K, V> node) {
         LRUCacheNode<K, V> originalPrev = node.getPrev();
         LRUCacheNode<K, V> originalNext = node.getNext();
         originalPrev.setNext(originalNext);
