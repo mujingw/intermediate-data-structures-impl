@@ -19,11 +19,6 @@ public final class TrieImpl implements Trie {
         this.root = new TrieNode();
     }
 
-    /**
-     *
-     * @param word the word to be added
-     * @return whether the word has been added to the trie successfully
-     */
     @Override
     public boolean add(final String word) {
         TrieNode currNode = this.root;
@@ -44,11 +39,6 @@ public final class TrieImpl implements Trie {
         return true;
     }
 
-    /**
-     *
-     * @param word the word to be searched for
-     * @return whether the word exists in the trie
-     */
     @Override
     public boolean search(final String word) {
         TrieNode currNode = this.root;
@@ -67,12 +57,6 @@ public final class TrieImpl implements Trie {
         return currNode.isWord();
     }
 
-    /**
-     *
-     * @param prefix the prefix to be searched for
-     * @return whether there is a word in the trie that starts with
-     * the prefix passed in
-     */
     @Override
     public boolean startsWith(final String prefix) {
         TrieNode currNode = this.root;

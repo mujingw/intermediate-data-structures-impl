@@ -34,16 +34,16 @@ public final class TrieNode {
 
     /**
      *
-     * @param isWordToSet indicates whether the path ending at the current
+     * @param isWord indicates whether the path ending at the current
      *                    node represents a valid word
      */
-    public void setIsWord(final boolean isWordToSet) {
-        this.isWord = isWordToSet;
+    public void setIsWord(final boolean isWord) {
+        this.isWord = isWord;
     }
 
     /**
      *
-     * @return map representation of the children of current TrieNode
+     * @return a map representation of the children of current TrieNode
      */
     public Map<Character, TrieNode> getChildren() {
         return this.children;
