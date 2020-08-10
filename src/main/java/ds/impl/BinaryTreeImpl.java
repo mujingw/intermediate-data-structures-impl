@@ -8,7 +8,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.function.Function;
 
-public final class BinaryTreeSerDesImpl<T> implements BinaryTreeSerDes<T> {
+public final class BinaryTreeImpl<T> implements BinaryTreeSerDes<T> {
 
     /**
      * The character that separates the string representation of each node.
@@ -29,7 +29,7 @@ public final class BinaryTreeSerDesImpl<T> implements BinaryTreeSerDes<T> {
      *
      * @param converter a method that converts String type object to type T
      */
-    public BinaryTreeSerDesImpl(final Function<String, T> converter) {
+    public BinaryTreeImpl(final Function<String, T> converter) {
         this.converter = converter;
     }
 

@@ -1,16 +1,16 @@
 package ds;
 
 import ds.entity.BinaryTreeNode;
-import ds.impl.BinaryTreeSerDesImpl;
+import ds.impl.BinaryTreeImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class BinaryTreeSerDesImplTest {
+public class BinaryTreeImplTest {
 
     @Test
     public void serializeTest() {
         BinaryTreeSerDes<Integer> serializer =
-                new BinaryTreeSerDesImpl<>(Integer::valueOf);
+                new BinaryTreeImpl<>(Integer::valueOf);
         BinaryTreeNode<Integer> root = new BinaryTreeNode<>(1);
         BinaryTreeNode<Integer> node1 = new BinaryTreeNode<>(2);
         BinaryTreeNode<Integer> node2 = new BinaryTreeNode<>(3);
@@ -30,7 +30,7 @@ public class BinaryTreeSerDesImplTest {
     public void deserializeTest() {
         String data = "1,2,X,X,3,4,X,X,5,X,X";
         BinaryTreeSerDes<Integer> deserializer =
-                new BinaryTreeSerDesImpl<>(Integer::valueOf);
+                new BinaryTreeImpl<>(Integer::valueOf);
 
         BinaryTreeNode<Integer> root = deserializer.deserialize(data);
 

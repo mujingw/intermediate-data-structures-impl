@@ -14,7 +14,7 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
     private final long capacity;
 
     /**
-     * The underlying data structure that provides constant time lookup.
+     * The underlying data structure that should provide constant time lookup.
      */
     private final Map<K, LRUCacheNode<K, V>> cache;
 
@@ -32,8 +32,8 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
 
     /**
      *
-     * @param capacity the maximum number of element the LRUCache object
-     *                 can hold
+     * @param capacity the maximum number of elements of type V,
+     *                which the LRUCache object can hold
      */
     public LRUCacheImpl(final long capacity) {
         this.capacity = capacity;
@@ -48,7 +48,7 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
     public V get(final K key) {
         if (cache.containsKey(key)) {
             LRUCacheNode<K, V> node = cache.get(key);
-            this.reRank(node);
+            this.updateRank(node);
 
             return node.getValue();
         }
@@ -64,7 +64,7 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
             // overwrite the existing value
             cache.get(key).setValue(value);
             // update the rank now that the node has just been accessed
-            this.reRank(this.cache.get(key));
+            this.updateRank(this.cache.get(key));
 
             return existingValue;
         } else {
@@ -72,7 +72,8 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
 
             // add node to the lookup cache
             this.cache.put(key, nodeToAdd);
-            // update the rank of the newly added node to the top
+            // insert the newly added node to the tail of the doubly-linked
+            //  list, indicating that it is the most recently accessed node
             this.add(nodeToAdd);
 
             if (this.cache.size() > this.capacity) {
@@ -95,7 +96,7 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
      * adds it back to the tail (most recently used) of the doubly-linked list.
      * @param node the node to be re-ranked
      */
-    private void reRank(final LRUCacheNode<K, V> node) {
+    private void updateRank(final LRUCacheNode<K, V> node) {
         this.evict(node);
         this.add(node);
     }
