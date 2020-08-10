@@ -10,10 +10,14 @@ public class LRUCacheImplTest {
     public void LRUCachePutTest() {
         LRUCache<Integer, Integer> lruCache = new LRUCacheImpl<>(100);
 
-        lruCache.put(1, 1);
-        lruCache.put(2, 2);
+        Integer oldValue1 = lruCache.put(1, 1);
+        Integer oldValue2 = lruCache.put(2, 2);
+        Integer oldValue3 = lruCache.put(1, 3);
 
         Assert.assertEquals(2, lruCache.size());
+        Assert.assertNull(oldValue1);
+        Assert.assertNull(oldValue2);
+        Assert.assertEquals(Integer.valueOf(1), oldValue3);
     }
 
     @Test

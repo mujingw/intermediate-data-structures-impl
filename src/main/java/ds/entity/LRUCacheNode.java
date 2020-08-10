@@ -1,47 +1,37 @@
 package ds.entity;
 
-public class LRUCacheNode<K, V> extends ListNode<K> {
+public class LRUCacheNode<K, V> extends ListNode<V> {
 
     /**
      * The actual information that the LRUCache stores.
      */
-    private V auxValue;
+    private K cacheKey;
 
     /**
      *
-     * @param key key of the key-value pair which the LRUCache stores
+     * @param cacheKey key of the key-value pair which the LRUCache stores
      * @param value value of the key-value pair which the LRUCache stores
      */
-    public LRUCacheNode(final K key, final V value) {
-        super(key);
+    public LRUCacheNode(final K cacheKey, final V value) {
+        super(value);
 
-        this.auxValue = value;
+        this.cacheKey = cacheKey;
     }
 
     /**
      *
-     * @return the key of key-value pair stored in the cache; it is actually
-     * the value field in its parent class
-     * @see ListNode#getValue()
+     * @param cacheKey the new value to be assigned to the current node
      */
-    public K getKey() {
-        return super.getValue();
-    }
-
-    /**
-     *
-     * @param auxValue the new value to be assigned to the current node
-     */
-    public void setAuxValue(final V auxValue) {
-        this.auxValue = auxValue;
+    public void setCacheKey(final K cacheKey) {
+        this.cacheKey = cacheKey;
     }
 
     /**
      *
      * @return the auxValue in the node
      */
-    public V getAuxValue() {
-        return this.auxValue;
+    public K getCacheKey() {
+        return this.cacheKey;
     }
 
     /**

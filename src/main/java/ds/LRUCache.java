@@ -15,7 +15,7 @@ public interface LRUCache<K, V> {
      * @param value the value of the key-value pair to be stored
      * @return whether or not the operation was successful
      */
-    boolean put(K key, V value);
+    V put(K key, V value);
 
     /**
      *

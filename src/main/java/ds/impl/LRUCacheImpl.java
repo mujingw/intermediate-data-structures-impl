@@ -11,24 +11,24 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
     /**
      * Indicates the maximum number of element the cache can hold.
      */
-    private long capacity;
+    private final long capacity;
 
     /**
      * The underlying data structure that provides constant time lookup.
      */
-    private Map<K, LRUCacheNode<K, V>> cache;
+    private final Map<K, LRUCacheNode<K, V>> cache;
 
     /**
      * Head of the internal doubly-linked list, pointing to the least
      * recently used node.
      */
-    private LRUCacheNode<K, V> head;
+    private final LRUCacheNode<K, V> head;
 
     /**
      * Tail of the internal doubly-linked list, pointing to the most
      * recently used node.
      */
-    private LRUCacheNode<K, V> tail;
+    private final LRUCacheNode<K, V> tail;
 
     /**
      *
@@ -50,17 +50,21 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
             LRUCacheNode<K, V> node = cache.get(key);
             this.reRank(node);
 
-            return node.getAuxValue();
+            return node.getValue();
         }
 
         return null;
     }
 
     @Override
-    public boolean put(final K key, final V value) {
+    public V put(final K key, final V value) {
         if (this.cache.containsKey(key)) {
+            V oldValue = this.cache.get(key).getValue();
+
             this.reRank(this.cache.get(key));
-            cache.get(key).setAuxValue(value);
+            cache.get(key).setCacheKey(key);
+
+            return oldValue;
         } else {
             LRUCacheNode<K, V> nodeToAdd = new LRUCacheNode<>(key, value);
 
@@ -70,11 +74,11 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
             if (this.cache.size() > this.capacity) {
                 LRUCacheNode<K, V> nodeToRemove = this.head.getNext();
                 this.remove(nodeToRemove);
-                this.cache.remove(nodeToRemove.getKey());
+                this.cache.remove(nodeToRemove.getCacheKey());
             }
-        }
 
-        return true;
+            return null;
+        }
     }
 
     @Override

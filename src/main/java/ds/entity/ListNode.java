@@ -5,7 +5,7 @@ public class ListNode<T> {
     /**
      * The information that the node stores.
      */
-    private T value;
+    private final T value;
 
     /**
      * The node whose position is immediately in front of the current node.
