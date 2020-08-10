@@ -3,9 +3,10 @@
 ## Data structures implemented
 - Trie (does not support wildcard search yet)
 - Generic binary tree 
+- LRU Cache
 
 ## To do
-- LRU Cache
+- Binary Search Tree Iterator
 - Rate Limiter
 - Union Find
 - Graph
