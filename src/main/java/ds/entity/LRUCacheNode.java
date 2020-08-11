@@ -3,9 +3,9 @@ package ds.entity;
 public class LRUCacheNode<K, V> extends ListNode<V> {
 
     /**
-     * The actual information that the LRUCache stores.
+     * The key in the underlying cache, to which the current node is mapped
      */
-    private K cacheKey;
+    private final K cacheKey;
 
     /**
      *
