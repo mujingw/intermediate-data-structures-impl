@@ -3,7 +3,7 @@ package ds.entity;
 public class LRUCacheNode<K, V> extends ListNode<V> {
 
     /**
-     * The key in the underlying cache, to which the current node is mapped
+     * The key in the underlying cache, to which the current node is mapped.
      */
     private final K cacheKey;
 

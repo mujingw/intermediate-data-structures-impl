@@ -17,11 +17,6 @@ public class ListNode<T> {
      */
     private ListNode<T> next;
 
-//    /**
-//     * The child node of the current node.
-//     */
-//    private ListNode<T> child;
-
     /**
      *
      * @param value the value that the node holds

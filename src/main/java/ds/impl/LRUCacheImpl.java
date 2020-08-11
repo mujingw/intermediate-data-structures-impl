@@ -9,7 +9,7 @@ import java.util.Map;
 public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
 
     /**
-     * Indicates the maximum number of element the cache can hold.
+     * The maximum number of elements a LRUCache object can hold.
      */
     private final long capacity;
 
