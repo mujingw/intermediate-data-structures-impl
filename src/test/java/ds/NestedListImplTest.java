@@ -41,7 +41,7 @@ public class NestedListImplTest {
                 new NestedListImpl<>(createNestedListForTests());
 
         Assert.assertEquals(
-                "{NestedList [0, 1, 2, 5, 6, 7, 8, 9, 3, 4, null}",
+                "{NestedList [0, 1, 2, [5, 6, [7, [8, 9, null], null], null], 3, 4, null]}",
                 list.toString(false));
     }
 

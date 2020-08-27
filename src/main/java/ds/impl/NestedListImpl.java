@@ -73,14 +73,15 @@ public class NestedListImpl<T> extends DoublyLinkedListImpl<T>
      */
     @Override
     public String toString(final boolean reverse) {
-        StringBuilder sb = new StringBuilder("{NestedList [");
+        StringBuilder sb = new StringBuilder("{NestedList ");
 
         if (!reverse) {
             Stack<NestedListNode<T>> stack = new Stack<>();
             toStringHelper(stack, this.head, sb);
         }
 
-        sb.append("null}");
+        sb.setLength(sb.length() - 2);
+        sb.append("}");
 
         return sb.toString();
     }
@@ -89,6 +90,7 @@ public class NestedListImpl<T> extends DoublyLinkedListImpl<T>
                                 final NestedListNode<T> levelHead,
                                 final StringBuilder sb) {
         NestedListNode<T> curr = levelHead;
+        sb.append("[");
 
         while (curr != null) {
             sb.append(curr.getValue()).append(", ");
@@ -103,5 +105,7 @@ public class NestedListImpl<T> extends DoublyLinkedListImpl<T>
                 toStringHelper(stack, stack.pop().getChild(), sb);
             }
         }
+
+        sb.append("null], ");
     }
 }
