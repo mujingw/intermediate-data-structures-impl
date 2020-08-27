@@ -1,8 +1,8 @@
-package ds;
+package ds.util;
 
 import ds.entity.BinaryTreeNode;
 
-public interface BinaryTreeSerDes<T> {
+public interface BinaryTreeSerializer<T> {
 
     /**
      *

@@ -1,6 +1,5 @@
-package ds.impl;
+package ds.util;
 
-import ds.BinaryTreeSerDes;
 import ds.entity.BinaryTreeNode;
 
 import java.util.Arrays;
@@ -8,7 +7,8 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.function.Function;
 
-public final class BinaryTreeImpl<T> implements BinaryTreeSerDes<T> {
+public final class BinaryTreeSerializerImpl<T>
+        implements BinaryTreeSerializer<T> {
 
     /**
      * The character that separates the string representation of each node.
@@ -29,7 +29,7 @@ public final class BinaryTreeImpl<T> implements BinaryTreeSerDes<T> {
      *
      * @param converter a method that converts String type object to type T
      */
-    public BinaryTreeImpl(final Function<String, T> converter) {
+    public BinaryTreeSerializerImpl(final Function<String, T> converter) {
         this.converter = converter;
     }
 
