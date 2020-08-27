@@ -5,7 +5,7 @@ import ds.entity.ListNode;
 
 import java.util.List;
 
-public class DoublyLinkedListImpl<T> implements DoublyLinkedList<T> {
+public class DoublyLinkedListImpl<T> implements DoublyLinkedList {
 
     /**
      * Head (front, first node) of the doubly-linked list.
@@ -80,14 +80,13 @@ public class DoublyLinkedListImpl<T> implements DoublyLinkedList<T> {
     }
 
     /**
-     *
-     * @param reversed indicates whether or not to construct the string
-     *                 in a reversed order (i.e., from tail to head)
+     * @param reverse indicates whether or not to construct the string
+     *                in a reversed order (i.e., from tail to head)
      * @return a string representation of the doubly-linked list
      */
     @Override
-    public String toString(final boolean reversed) {
-        ListNode<T> curr = reversed ? tail : head;
+    public String toString(final boolean reverse) {
+        ListNode<T> curr = reverse ? tail : head;
         StringBuilder sb = new StringBuilder("{DoublyLinkedList [");
 
         while (curr != null) {

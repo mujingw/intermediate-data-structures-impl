@@ -4,6 +4,7 @@
 - Trie (does not support wildcard search yet)
 - Generic Binary Tree (supports serialization and deserialization)
 - LRU Cache
+- Nested Linked List
 
 ## To do
 - Binary Search Tree Iterator
