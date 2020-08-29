@@ -33,6 +33,7 @@ public class NestedListImplTest {
         }
 
         Assert.assertEquals(count, 10);
+        Assert.assertEquals(Integer.valueOf(4), list.getTail().getValue());
     }
 
     @Test
@@ -43,6 +44,17 @@ public class NestedListImplTest {
         Assert.assertEquals(
                 "{NestedList [0, 1, 2, [5, 6, [7, [8, 9, null], null], null], 3, 4, null]}",
                 list.toString(false));
+        Assert.assertEquals(
+                "{NestedList [4, 3, 2, [5, 6, [7, [8, 9, null], null], null], 1, 0, null]}",
+                list.toString(true));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void constructorWithIllegalArgumentTest1() {
+        NestedList<Integer> list
+                = new NestedListImpl<>(null);
+
+        Assert.assertNotNull(list);
     }
 
     private NestedListNode<Integer> createNestedListForTests() {

@@ -44,4 +44,12 @@ public class NestedListNode<T> extends ListNode<T> {
     public NestedListNode<T> getNext() {
         return (NestedListNode<T>) super.getNext();
     }
+
+    /**
+     * @return the NestedListNode immediately before the current node
+     */
+    @Override
+    public NestedListNode<T> getPrev() {
+        return (NestedListNode<T>) super.getPrev();
+    }
 }

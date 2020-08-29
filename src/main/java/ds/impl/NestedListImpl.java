@@ -14,10 +14,26 @@ public class NestedListImpl<T> extends DoublyLinkedListImpl<T>
     private final NestedListNode<T> head;
 
     /**
+     * Tail of the nested linked list.
+     */
+    private final NestedListNode<T> tail;
+
+    /**
      * @param head the beginning of an externally constructed nested list
      */
     public NestedListImpl(final NestedListNode<T> head) {
+        if (head == null) {
+            throw new IllegalArgumentException();
+        }
+
         this.head = head;
+        NestedListNode<T> curr = head;
+
+        while (curr.getNext() != null) {
+            curr = curr.getNext();
+        }
+
+        this.tail = curr;
     }
 
     /**
@@ -25,10 +41,6 @@ public class NestedListImpl<T> extends DoublyLinkedListImpl<T>
      */
     @Override
     public NestedListNode<T> flatten() {
-        if (this.head == null) {
-            return null;
-        }
-
         Stack<NestedListNode<T>> stack = new Stack<>();
         stack.push(this.head);
         NestedListNode<T> dummy =
@@ -39,6 +51,7 @@ public class NestedListImpl<T> extends DoublyLinkedListImpl<T>
             NestedListNode<T> curr = stack.pop();
             curr.setPrev(prev);
             prev.setNext(curr);
+            prev = curr;
 
             if (curr.getNext() != null) {
                 stack.push(curr.getNext());
@@ -49,8 +62,6 @@ public class NestedListImpl<T> extends DoublyLinkedListImpl<T>
                 stack.push(curr.getChild());
                 curr.setChild(null);
             }
-
-            prev = curr;
         }
 
         dummy.getNext().setPrev(null);
@@ -67,6 +78,14 @@ public class NestedListImpl<T> extends DoublyLinkedListImpl<T>
     }
 
     /**
+     * @return the node at the end of the list object
+     */
+    @Override
+    public NestedListNode<T> getTail() {
+        return this.tail;
+    }
+
+    /**
      * @param reverse indicates whether or not to construct the string
      *                in a reversed order (i.e., from tail to head)
      * @return a string representation of the nested doubly-linked list
@@ -76,8 +95,9 @@ public class NestedListImpl<T> extends DoublyLinkedListImpl<T>
         StringBuilder sb = new StringBuilder("{NestedList ");
 
         if (!reverse) {
-            Stack<NestedListNode<T>> stack = new Stack<>();
-            toStringHelper(stack, this.head, sb);
+            toStringHelper(new Stack<>(), this.head, sb, false, 0);
+        } else {
+            toStringHelper(new Stack<>(), this.tail, sb, true, 0);
         }
 
         sb.setLength(sb.length() - 2);
@@ -88,7 +108,9 @@ public class NestedListImpl<T> extends DoublyLinkedListImpl<T>
 
     private void toStringHelper(final Stack<NestedListNode<T>> stack,
                                 final NestedListNode<T> levelHead,
-                                final StringBuilder sb) {
+                                final StringBuilder sb,
+                                final boolean reverse,
+                                final int depth) {
         NestedListNode<T> curr = levelHead;
         sb.append("[");
 
@@ -99,10 +121,15 @@ public class NestedListImpl<T> extends DoublyLinkedListImpl<T>
                 stack.push(curr);
             }
 
-            curr = curr.getNext();
+            if (!reverse || depth > 0) {
+                curr = curr.getNext();
+            } else {
+                curr = curr.getPrev();
+            }
 
             if (!stack.isEmpty()) {
-                toStringHelper(stack, stack.pop().getChild(), sb);
+                toStringHelper(
+                        stack, stack.pop().getChild(), sb, reverse, depth + 1);
             }
         }
 

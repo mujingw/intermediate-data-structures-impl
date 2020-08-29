@@ -30,15 +30,39 @@ public class DoublyLinkedListImpl<T> implements DoublyLinkedList {
     }
 
     /**
+     * Constructs a new instance of DoublyLinkedListImpl from an existing
+     * doubly-linked list's head node.
      *
+     * @param head the beginning of the existing list to be constructed
+     */
+    public DoublyLinkedListImpl(final ListNode<T> head) {
+        if (head == null) {
+            throw new IllegalArgumentException();
+        }
+
+        this.head = head;
+        ListNode<T> curr = head;
+        ListNode<T> prev = null;
+
+        while (curr != null) {
+            this.size++;
+
+            prev = curr;
+            curr = curr.getNext();
+        }
+
+        this.tail = prev;
+    }
+
+    /**
      * @param nodes list of individual nodes to be linked
      */
     public DoublyLinkedListImpl(final List<ListNode<T>> nodes) {
-        this.size = 0;
-
         if (nodes == null || nodes.isEmpty()) {
-            return;
+            throw new IllegalArgumentException();
         }
+
+        this.size = 0;
 
         for (ListNode<T> node : nodes) {
             if (this.size == 0) {
@@ -91,7 +115,12 @@ public class DoublyLinkedListImpl<T> implements DoublyLinkedList {
 
         while (curr != null) {
             sb.append(curr.getValue()).append(", ");
-            curr = curr.getNext();
+
+            if (reverse) {
+                curr = curr.getPrev();
+            } else {
+                curr = curr.getNext();
+            }
         }
 
         sb.append("null]}");

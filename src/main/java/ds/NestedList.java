@@ -12,7 +12,12 @@ public interface NestedList<T> extends DoublyLinkedList {
     NestedListNode<T> flatten();
 
     /**
-     * @return the head of the rested linked list
+     * @return the head of the nested linked list
      */
     NestedListNode<T> getHead();
+
+    /**
+     * @return the tail of the nested linked list
+     */
+    NestedListNode<T> getTail();
 }
