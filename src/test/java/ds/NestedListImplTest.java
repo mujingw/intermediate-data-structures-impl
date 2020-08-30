@@ -22,7 +22,7 @@ public class NestedListImplTest {
         NestedListNode<Integer> curr = list.getHead();
         int count = 0;
 
-        list.flatten();
+        NestedListNode<Integer> head = list.flatten();
 
         while (curr != null) {
             Assert.assertNull(curr.getChild());
@@ -33,6 +33,12 @@ public class NestedListImplTest {
         }
 
         Assert.assertEquals(count, 10);
+        Assert.assertEquals(head, list.getHead());
+        Assert.assertEquals(Integer.valueOf(1), head.getNext().getValue());
+        Assert.assertEquals(Integer.valueOf(2), head.getNext().getNext().getValue());
+        Assert.assertNull(head.getChild());
+        Assert.assertNull(head.getNext().getChild());
+        Assert.assertNull(head.getNext().getNext().getChild());
         Assert.assertEquals(Integer.valueOf(4), list.getTail().getValue());
     }
 
