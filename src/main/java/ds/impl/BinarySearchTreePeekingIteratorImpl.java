@@ -62,11 +62,11 @@ public class BinarySearchTreePeekingIteratorImpl<T>
     @Override
     public T next() {
         if (hasPeeked) {
-            T returnValue = peekedValue;
+            T nextValue = peekedValue;
             peekedValue = null;
             hasPeeked = false;
 
-            return returnValue;
+            return nextValue;
         } else {
             return iterator.next();
         }
