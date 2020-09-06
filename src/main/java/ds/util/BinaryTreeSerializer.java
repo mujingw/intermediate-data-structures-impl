@@ -6,7 +6,7 @@ public interface BinaryTreeSerializer<T> {
 
     /**
      *
-     * @param root the root of the binary to be serialized
+     * @param root the root of the binary tree to be serialized
      * @return a string representation of the serialized binary tree
      */
     String serialize(BinaryTreeNode<T> root);

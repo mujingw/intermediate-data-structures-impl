@@ -5,9 +5,9 @@
 - Generic Binary Tree (supports serialization and deserialization)
 - LRU Cache
 - Nested Linked List
+- Binary Search Tree Iterator
 
 ## To do
-- Binary Search Tree Iterator
 - Rate Limiter
 - Union Find
 - Graph

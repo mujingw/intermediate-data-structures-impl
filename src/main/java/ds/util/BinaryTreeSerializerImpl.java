@@ -33,6 +33,11 @@ public final class BinaryTreeSerializerImpl<T>
         this.converter = converter;
     }
 
+    /**
+     *
+     * @param root the root of the binary tree to be serialized
+     * @return a preorder string representation of the binary tree
+     */
     @Override
     public String serialize(final BinaryTreeNode<T> root) {
         StringBuilder sb = new StringBuilder();
@@ -42,6 +47,12 @@ public final class BinaryTreeSerializerImpl<T>
         return sb.substring(0, sb.length() - 1);
     }
 
+    /**
+     *
+     * @param data a preorder string representation of the binary tree
+     *             to be de-serialized
+     * @return the root node of the de-serialized binary tree
+     */
     @Override
     public BinaryTreeNode<T> deserialize(final String data) {
         Deque<String> nodes = new LinkedList<>(
@@ -67,12 +78,12 @@ public final class BinaryTreeSerializerImpl<T>
         if (value.equals(NULL_NODE)) {
             return null;
         } else {
-            BinaryTreeNode<T> node =
+            BinaryTreeNode<T> root =
                     new BinaryTreeNode<>(converter.apply(value));
-            node.setLeft(buildTree(nodes));
-            node.setRight(buildTree(nodes));
+            root.setLeft(buildTree(nodes));
+            root.setRight(buildTree(nodes));
 
-            return node;
+            return root;
         }
     }
 }
