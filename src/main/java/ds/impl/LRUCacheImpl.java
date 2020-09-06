@@ -69,17 +69,11 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
             return existingValue;
         } else {
             LRUCacheNode<K, V> nodeToAdd = new LRUCacheNode<>(key, value);
-
-            // add node to the lookup cache
-            this.cache.put(key, nodeToAdd);
-            // insert the newly added node to the tail of the doubly-linked
-            //  list, indicating that it is the most recently accessed node
-            this.add(nodeToAdd);
+            this.add(key, nodeToAdd);
 
             if (this.cache.size() > this.capacity) {
                 LRUCacheNode<K, V> nodeToEvict = this.head.getNext();
                 this.evict(nodeToEvict);
-                this.cache.remove(nodeToEvict.getCacheKey());
             }
 
             return null;
@@ -92,20 +86,44 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
     }
 
     /**
+     * Adds the LRUCacheNode to the LRUCache instance.
+     * @param key key of the node to add
+     * @param nodeToAdd node to be added to the the underlying map and
+     *                  the doubly-linked list
+     */
+    private void add(final K key, final LRUCacheNode<K, V> nodeToAdd) {
+        // add node to the lookup cache
+        this.cache.put(key, nodeToAdd);
+        // insert the newly added node to the tail of the doubly-linked
+        //  list, indicating that it is the most recently accessed node
+        this.addToList(nodeToAdd);
+    }
+
+    /**
+     * Evicts the LRUCacheNode from the LRUCache instance.
+     * @param nodeToEvict the LRUCacheNode to be removed from both the
+     *                    underlying map and the doubly-linked list
+     */
+    private void evict(final LRUCacheNode<K, V> nodeToEvict) {
+        this.removeFromList(nodeToEvict);
+        this.cache.remove(nodeToEvict.getCacheKey());
+    }
+
+    /**
      * Removes the node from its current position in the doubly-linked list and
      * adds it back to the tail (most recently used) of the doubly-linked list.
-     * @param node the node to be re-ranked
+     * @param node the node to be re-ranked in the doubly-linked list
      */
     private void updateRank(final LRUCacheNode<K, V> node) {
-        this.evict(node);
-        this.add(node);
+        this.removeFromList(node);
+        this.addToList(node);
     }
 
     /**
      *
      * @param node the node to be added to the tail of the list
      */
-    private void add(final LRUCacheNode<K, V> node) {
+    private void addToList(final LRUCacheNode<K, V> node) {
         LRUCacheNode<K, V> prevLastNode = this.tail.getPrev();
         this.tail.setPrev(node);
         prevLastNode.setNext(node);
@@ -116,10 +134,10 @@ public final class LRUCacheImpl<K, V> implements LRUCache<K, V> {
 
     /**
      *
-     * @param node the node to be evicted from its current position
+     * @param node the node to be removed from its current position
      *             in the list
      */
-    private void evict(final LRUCacheNode<K, V> node) {
+    private void removeFromList(final LRUCacheNode<K, V> node) {
         LRUCacheNode<K, V> originalPrev = node.getPrev();
         LRUCacheNode<K, V> originalNext = node.getNext();
         originalPrev.setNext(originalNext);
