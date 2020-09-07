@@ -3,8 +3,7 @@ package ds.impl;
 import ds.Iterator;
 import ds.PeekingIterator;
 
-public class BinarySearchTreePeekingIteratorImpl<T>
-        implements PeekingIterator<T> {
+public class PeekingIteratorImpl<T> implements PeekingIterator<T> {
 
     /**
      * The underlying iterator without peeking functionality.
@@ -26,7 +25,7 @@ public class BinarySearchTreePeekingIteratorImpl<T>
      * @param iterator the underlying basic iterator without
      *                 peeking functionality
      */
-    public BinarySearchTreePeekingIteratorImpl(
+    public PeekingIteratorImpl(
             final Iterator<T> iterator) {
         this.iterator = iterator;
     }

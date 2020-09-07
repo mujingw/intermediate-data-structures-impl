@@ -2,17 +2,17 @@ package ds;
 
 import ds.entity.BinaryTreeNode;
 import ds.impl.BinarySearchTreeIteratorImpl;
-import ds.impl.BinarySearchTreePeekingIteratorImpl;
+import ds.impl.PeekingIteratorImpl;
 import ds.util.BinaryTreeSerializerImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BinarySearchTreePeekingIteratorImplTest {
+public class PeekingIteratorImplTest {
 
     private BinaryTreeSerializerImpl<Integer> serializer;
     private BinarySearchTreeIteratorImpl<Integer> iterator;
-    private BinarySearchTreePeekingIteratorImpl<Integer> peekingIterator;
+    private PeekingIteratorImpl<Integer> peekingIterator;
     private BinaryTreeNode<Integer> root;
 
     @Before
@@ -20,7 +20,7 @@ public class BinarySearchTreePeekingIteratorImplTest {
         serializer = new BinaryTreeSerializerImpl<>(Integer::valueOf);
         root = serializer.deserialize("2,1,X,X,3,X,X");
         iterator = new BinarySearchTreeIteratorImpl<>(root);
-        peekingIterator = new BinarySearchTreePeekingIteratorImpl<>(iterator);
+        peekingIterator = new PeekingIteratorImpl<>(iterator);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class BinarySearchTreePeekingIteratorImplTest {
     public void hasNextTest() {
         root = serializer.deserialize("7,3,X,X,15,9,X,X,20,X,X");
         iterator = new BinarySearchTreeIteratorImpl<>(root);
-        peekingIterator = new BinarySearchTreePeekingIteratorImpl<>(iterator);
+        peekingIterator = new PeekingIteratorImpl<>(iterator);
 
         Assert.assertEquals(Integer.valueOf(3), peekingIterator.next());
         Assert.assertEquals(Integer.valueOf(7), peekingIterator.next());
