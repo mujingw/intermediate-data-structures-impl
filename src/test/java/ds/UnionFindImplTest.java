@@ -34,4 +34,26 @@ public class UnionFindImplTest {
         Assert.assertEquals(2, this.uf.find(2));
         Assert.assertEquals(3, this.uf.find(3));
     }
+
+    @Test
+    public void pathCompressionTest() {
+        UnionFind myUf = new UnionFindImpl(10,
+                new int[]{1, 2, 3, 4, 5, 6, 7, 8});
+
+        Assert.assertEquals(8, myUf.getCount());
+
+        myUf.union(1, 2);
+        myUf.union(2, 4);
+        myUf.union(2, 3);
+        myUf.union(3, 6);
+        myUf.union(5, 7);
+        myUf.union(1, 5);
+        myUf.union(6, 8);
+
+        Assert.assertEquals(1, myUf.getCount());
+
+        for (int i = 1; i < 9; i++) {
+            Assert.assertEquals(1, myUf.find(i));
+        }
+    }
 }
