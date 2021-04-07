@@ -41,7 +41,7 @@ public class UnionFindImpl implements UnionFind {
 
     /**
      *
-     * @param i the node to query for
+     * @param i the node for which we need to find the parent
      * @return the root of node {@code i}
      */
     public int find(final int i) {
@@ -54,21 +54,21 @@ public class UnionFindImpl implements UnionFind {
 
     /**
      *
-     * @param x the first element to be unionized
-     * @param y the second element to be unionized
+     * @param node the first element to be unionized
+     * @param otherNode the second element to be unionized
      */
-    public void union(final int x, final int y) {
-        int rootX = this.find(x);
-        int rootY = this.find(y);
+    public void union(final int node, final int otherNode) {
+        int rootThisNode = this.find(node);
+        int rootOtherNode = this.find(otherNode);
 
-        if (rootX != rootY) {
-            if (this.rank[rootX] > this.rank[rootY]) {
-                this.parent[rootY] = rootX;
-            } else if (this.rank[rootY] > this.rank[rootX]) {
-                this.parent[rootX] = rootY;
+        if (rootThisNode != rootOtherNode) {
+            if (this.rank[rootThisNode] > this.rank[rootOtherNode]) {
+                this.parent[rootOtherNode] = rootThisNode;
+            } else if (this.rank[rootOtherNode] > this.rank[rootThisNode]) {
+                this.parent[rootThisNode] = rootOtherNode;
             } else {
-                this.parent[rootY] = rootX;
-                this.rank[rootX]++;
+                this.parent[rootOtherNode] = rootThisNode;
+                this.rank[rootThisNode]++;
             }
 
             this.count--;
